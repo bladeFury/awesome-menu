@@ -1,6 +1,7 @@
 package com.bladefury.awesomemenu.lib;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -24,6 +25,7 @@ public class AwesomeMenu extends FrameLayout{
 
     private View mMenuRoot;
     private AwesomeAdapter mAdapter;
+    MenuStatus mStatus;
 
     public AwesomeMenu(Context context) {
         super(context);
@@ -80,6 +82,16 @@ public class AwesomeMenu extends FrameLayout{
         super.onLayout(changed, l, t, r, b);
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     public View getMenuRoot() {
         return mMenuRoot;
     }
@@ -95,6 +107,33 @@ public class AwesomeMenu extends FrameLayout{
 
     public void setAdapter(AwesomeAdapter mAdapter) {
         this.mAdapter = mAdapter;
+        this.removeAllViewsInLayout();
+        mStatus = MenuStatus.CLOSED;
+        // add views
+        addMenuRootView();
+        addViewFromAdapter();
+    }
+
+    private void addViewFromAdapter() {
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            View v = mAdapter.getView(i, this);
+            addView(v);
+            v.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void addMenuRootView() {
+        addView(mMenuRoot);
+        syncRootMenuStatus();
+    }
+
+    private void syncRootMenuStatus() {
+        switch (mStatus) {
+            case CLOSED:
+                break;
+            case OPEN:
+                break;
+        }
     }
 
     public void openMenu() {

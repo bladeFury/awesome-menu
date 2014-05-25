@@ -1,5 +1,6 @@
 package com.bladefury.awesomemenu.lib.adapter;
 
+import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 public interface AwesomeAdapter {
     public int getCount();
     public Object getItem(int index);
-    View getView(int index, ViewGroup parent);
-
+    public View getView(int index, ViewGroup parent);
+    public Rect getViewRect(int index, Rect availableRect, Rect rootItemRect, View menuItemView);
 
 }
